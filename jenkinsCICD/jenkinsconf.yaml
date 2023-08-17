@@ -58,208 +58,27 @@ jenkins:
   agentProtocols:
   - "JNLP4-connect"
   - "Ping"
-  authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
-#  clouds:
-#  - docker:
-#      dockerApi:
-#        connectTimeout: 60
-#        dockerHost:
-#          uri: "tcp://10.26.0.198:4243"
-#        readTimeout: 60
-#      exposeDockerHost: true
-#      name: "docker"
-#      templates:
-#      - connector:
-#          attach:
-#            user: "root"
-#        dockerTemplateBase:
-#          cpuPeriod: 0
-#          cpuQuota: 0
-#          image: "jenkins/agent:alpine"
-#        instanceCapStr: "2"
-#        labelString: "jenkins-docker-slave"
-#        name: "jenkins-docker-slave"
-#        pullTimeout: 300
-#        remoteFs: "/home/jenkins"
-#  
-  crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: false
-  disableRememberMe: false
-  disabledAdministrativeMonitors:
-  - "hudson.node_monitors.MonitorMarkedNodeOffline"
-  - "jenkins.diagnostics.ControllerExecutorsNoAgents"
-  - "jenkins.diagnostics.ControllerExecutorsAgents"
-  labelAtoms:
-  - name: "BuildAgent1"
-  - name: "agent1"
-  - name: "built-in"
-  - name: "jenkins-docker-slave"
-  markupFormatter: "plainText"
-  mode: NORMAL
-  myViewsTabBar: "standard"
-  nodes:
-  - permanent:
-      labelString: "agent1"
-      launcher:
-        inbound:
-          workDirSettings:
-            disabled: false
-            failIfWorkDirIsMissing: false
-            internalDir: "remoting"
-            workDirPath: "/home/jenkins"
-      name: "BuildAgent1"
-      numExecutors: 2
-      remoteFS: "/home/jenkins"
-      retentionStrategy: "always"
-  numExecutors: 2
-  primaryView:
-    all:
-      name: "all"
-  projectNamingStrategy: "standard"
-  quietPeriod: 5
-  remotingSecurity:
-    enabled: true
-  scmCheckoutRetryCount: 0
-  securityRealm:
-    local:
-      allowsSignup: false
-      enableCaptcha: false
-      users:
-      - id: "yeg"
-        name: "yegPervyi"
-        properties:
-        - "myView"
-        - preferredProvider:
-            providerId: "default"
-        - "timezone"
-        - "experimentalFlags"
-        - mailer:
-            emailAddress: "yeg@gmail.com"
-        - "apiToken"
-  slaveAgentPort: 8081
-  updateCenter:
-    sites:
-    - id: "default"
-      url: "https://updates.jenkins.io/update-center.json"
-  views:
-  - all:
-      name: "all"
-  viewsTabBar: "standard"
-globalCredentialsConfiguration:
-  configuration:
-    providerFilter: "none"
-    typeFilter: "none"
-security:
-  apiToken:
-    creationOfLegacyTokenEnabled: false
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
-  gitHooks:
-    allowedOnAgents: false
-    allowedOnController: false
-  gitHostKeyVerificationConfiguration:
-    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
-  sSHD:
-    port: 22
-unclassified:
-  buildDiscarders:
-    configuredBuildDiscarders:
-    - "jobBuildDiscarder"
-  buildStepOperation:
-    enabled: false
-  email-ext:
-    adminRequiredForTemplateTesting: false
-    allowUnregisteredEnabled: false
-    charset: "UTF-8"
-    debugMode: false
-    defaultBody: |-
-      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:sys
-
-      Check console output at $BUILD_URL to view the results.
-    defaultContentType: "text/plain"
-    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
-    defaultTriggerIds:
-    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
-    maxAttachmentSize: -1
-    maxAttachmentSizeMb: -1
-    precedenceBulk: false
-    watchingEnabled: false
-  enrichedSummaryConfig:
-    enrichedSummaryEnabled: false
-    httpClientDelayBetweenRetriesInSeconds: 1
-    httpClientMaxRetries: 3
-    httpClientTimeoutInSeconds: 1
-  fingerprints:
-    fingerprintCleanupDisabled: false
-    storage: "file"
-  ghprbTrigger:
-    autoCloseFailedPullRequests: false
-    cron: "H/5 * * * *"
-    extensions:
-    - ghprbSimpleStatus:
-        addTestResults: false
-        showMatrixStatus: false
-    githubAuth:
-    - description: "Anonymous connection"
-      id: "0920363b-a720-4ac5-abbb-7205cb88b6dd"
-      serverAPIUrl: "https://api.github.com"
-    manageWebhooks: true
-    okToTestPhrase: ".*ok\\W+to\\W+test.*"
-    retestPhrase: ".*test\\W+this\\W+please.*"
-    skipBuildPhrase: ".*\\[skip\\W+ci\\].*"
-    useComments: false
-    useDetailedComments: false
-    whitelistPhrase: ".*add\\W+to\\W+whitelist.*"
-  gitHubConfiguration:
-    apiRateLimitChecker: ThrottleForNormalize
-  gitHubPluginConfig:
-    hookSecretConfigs:
-    - credentialsId: "ec3607be-112c-456a-9ac1-17215c238cb4"
-    hookUrl: "http://localhost:8080/github-webhook/"
-  githubPullRequests:
-    actualiseOnFactory: false
-  globalTimeOutConfiguration:
-    operations:
-    - "abortOperation"
-    overwriteable: false
-  injectionConfig:
-    allowUntrusted: false
-    checkForBuildAgentErrors: false
-    enabled: false
-    enforceUrl: false
-    injectCcudExtension: false
-    injectMavenExtension: false
-  junitTestResultStorage:
-    storage: "file"
-  location:
-    adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "http://localhost:8080/"
-  mailer:
-    charset: "UTF-8"
-    useSsl: false
-    useTls: false
-  pollSCM:
-    pollingThreadCount: 10
-  scmGit:
-    addGitTagAction: false
-    allowSecondFetch: false
-    createAccountBasedOnEmail: false
-    disableGitToolChooser: false
-    hideCredentials: false
-    showEntireCommitSummaryInChanges: false
-    useExistingAccountWithSameEmail: false
-  timestamper:
-    allPipelines: false
-    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
-    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
-tool:
-  git:
-    installations:
-    - home: "git"
-      name: "Default"
-  mavenGlobalConfig:
-    globalSettingsProvider: "standard"
-    settingsProvider: "standard"
+  clouds:
+  - kubernetes:
+      containerCap: 10
+      containerCapStr: "10"
+      jenkinsUrl: "http://jenkins-service:32600"
+      name: "kuberBuilder"
+      templates:
+      - containers:
+        - args: "9999999"
+          command: "sleep"
+          image: "jenkins/agent:alpine"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jenkins-kuber-slave"
+          workingDir: "/home/jenkins/agent"
+        id: "003f05b6-6f09-4ab0-8308-78500e77b0f3"
+        label: "jenkins-kuber-slave"
+        name: "jenkins-kuber-slave"
+        namespace: "default"
+        yamlMergeStrategy: "override"

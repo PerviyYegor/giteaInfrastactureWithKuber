@@ -92,4 +92,3 @@ apache-httpcomponents-client-5-api:5.2.1-1.0
 docker-java-api:3.3.1-79.v20b_53427e041
 docker-plugin:latest
 kubernetes:latest
-configuration-as-code:1647.ve39ca_b_829b_42

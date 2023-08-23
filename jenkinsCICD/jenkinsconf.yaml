@@ -2,83 +2,168 @@ credentials:
   system:
     domainCredentials:
     - credentials:
-      - string:
-          id: "ec3607be-112c-456a-9ac1-17215c238cb4"
-          scope: GLOBAL
-          secret: "{AQAAABAAAABgO5XF4fktrxIIAsIKPM7IdrCb9WwIBT89bWmFbYm2DZXpalgQa5tkuAOA64HGzkctK717QiaZtPEO+E1MF2edhe0B2qhtneGRuhNA4oZSfjfKpN+G27YmkRzjg5mfbJCVcZboRYmDtBSg5DWD82Ywrw==}"
-      - string:
-          id: "c905be73-b123-4d5b-bd12-d5963cf15203"
-          scope: GLOBAL
-          secret: "{AQAAABAAAABgMHJ964jRGsF7NzIPnso+o1yl1EQ+2aLSFgX2tIy9343spcgnE918wf9E9gK9IHnpc2sAR/urcxV1KV3X5Qh+AyraXmQgY6MnDeyXcCYhysnPZVJdShe2rLVMniNxtKoFz358VdhLExPMv1fEJXnF9A==}"
       - usernamePassword:
           id: "047377bd-1690-47b3-99d5-d32b6d7a3017"
-          password: "{AQAAABAAAABgsWZf3WkRGLNFNDTtwS2oQGXJCfHZE5Lbk0dq/JblbzLiH12dHHdCNCxuSEjMR/kjHYAe9vdWnYbVmVRfoJ+etZZFn3m7m1F8sc9YzHa/rFrWNsiACweQnZRXJv5L8Ex4GcNS6+3ba+s1o5kJ0gwgTw==}"
+          password: "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"
           scope: GLOBAL
           username: "PerviyYegor"
-      - string:
-          id: "eec4ecb2-2358-4f26-823c-019d77135907"
-          scope: GLOBAL
-          secret: "{AQAAABAAAABgFRc/lRctJqw1CSccOnpwmdQrbNzQqvWsh/rhw/ggJS6wynn/rg1CxE3NIUSWS2warrA86Ag06uhJkrRHSLJlgSp5K3V4n8ocamsWAobpn0ShyyEGoZtjhR36mw8ThNAA0oydOPMhw2hjYPD22hianQ==}"
-      - string:
-          id: "f3e9cce7-b8bf-4083-a639-6155d9a09699"
-          scope: GLOBAL
-          secret: "{AQAAABAAAABgJgqzCOu5hgzAwwBWgCF981CkjqUOuZAfv1kimRctK+Y/9ONI0Px6boKIGfoG+SKjIybi//PkA6PlGuHmSxOR8y5hjCrORVLWRdNkO6vaWCvXN/NvCwZPigHAlM+aarHVTis71prVyGN2HHcPffI2ig==}"
-      - usernamePassword:
-          id: "ae1e15c4-0d6b-460d-a99f-9675c3bc51bb"
-          password: "{AQAAABAAAAAQftsQqTWBizrrP6vcLIsXb1V9ttgLEuZDn+OAmzhM0D0=}"
-          scope: GLOBAL
-          username: "root"
-      - usernamePassword:
-          id: "8a457940-587f-4c04-9eeb-bf93def9a391"
-          password: "{AQAAABAAAAAQUyvvoY9GwMcy4m/ioSjIGxysYssaT0J23DuSiDpf8WI=}"
-          scope: GLOBAL
-          username: "jenkins"
-      - usernamePassword:
-          description: "tmp jenkins"
-          id: "34383038-a235-45b2-a7c6-4ff226f0e1b6"
-          password: "{AQAAABAAAAAQXT5N6BD43gOGfTT9CYZ4P0z6yxczxfaDftrIr4h7MSA=}"
-          scope: GLOBAL
-          username: "jenkins"
-      - usernamePassword:
-          description: "temp another jenkins"
-          id: "f8a625f1-8278-4cd0-acfc-5b1951b4853e"
-          password: "{AQAAABAAAAAQbP1CILflsmDe/MLs5l+Uv3LPnSy0ujA/NVPq57XdwvA=}"
-          scope: GLOBAL
-          username: "jenkins"
-      - usernamePassword:
-          id: "66f9463b-b760-42b1-865e-d1f9122a5cf9"
-          password: "{AQAAABAAAAAQNz6BsC/dIxdLfV9X847PYZNham9ULAbZGTJnB1MgjFs=}"
-          scope: GLOBAL
-          username: "root"
-      - gitHubApp:
-          appID: "358192"
-          id: "giteaBuild-jenkins"
-          privateKey: "{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}"
 jenkins:
   agentProtocols:
   - "JNLP4-connect"
   - "Ping"
   clouds:
   - kubernetes:
+      connectTimeout: 50
       containerCap: 10
       containerCapStr: "10"
-      jenkinsUrl: "http://jenkins-service:32600"
+      jenkinsUrl: "http://jenkins-service:8080"
       name: "kuberBuilder"
+      namespace: "default"
+      readTimeout: 50
       templates:
-      - containers:
-        - args: "9999999"
-          command: "sleep"
-          image: "jenkins/agent:alpine"
-          livenessProbe:
-            failureThreshold: 0
-            initialDelaySeconds: 0
-            periodSeconds: 0
-            successThreshold: 0
-            timeoutSeconds: 0
-          name: "jenkins-kuber-slave"
-          workingDir: "/home/jenkins/agent"
-        id: "003f05b6-6f09-4ab0-8308-78500e77b0f3"
+      - id: "003f05b6-6f09-4ab0-8308-78500e77b0f3"
         label: "jenkins-kuber-slave"
         name: "jenkins-kuber-slave"
         namespace: "default"
+        podRetention: "always"
         yamlMergeStrategy: "override"
+      webSocket: true
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  labelAtoms:
+  - name: "built-in"
+  - name: "jenkins-kuber-slave"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  gitHooks:
+    allowedOnAgents: false
+    allowedOnController: false
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+  sSHD:
+    port: -1
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildStepOperation:
+    enabled: false
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  enrichedSummaryConfig:
+    enrichedSummaryEnabled: false
+    httpClientDelayBetweenRetriesInSeconds: 1
+    httpClientMaxRetries: 3
+    httpClientTimeoutInSeconds: 1
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  ghprbTrigger:
+    autoCloseFailedPullRequests: false
+    cron: "H/5 * * * *"
+    extensions:
+    - ghprbSimpleStatus:
+        addTestResults: false
+        showMatrixStatus: false
+    githubAuth:
+    - description: "Anonymous connection"
+      id: "fb863cd3-7bf9-42a8-8d23-580c7d8f1cb6"
+      serverAPIUrl: "https://api.github.com"
+    manageWebhooks: true
+    okToTestPhrase: ".*ok\\W+to\\W+test.*"
+    retestPhrase: ".*test\\W+this\\W+please.*"
+    skipBuildPhrase: ".*\\[skip\\W+ci\\].*"
+    useComments: false
+    useDetailedComments: false
+    whitelistPhrase: ".*add\\W+to\\W+whitelist.*"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "http://192.168.59.100:32600/github-webhook/"
+  githubPullRequests:
+    actualiseOnFactory: false
+  globalTimeOutConfiguration:
+    operations:
+    - "abortOperation"
+    overwriteable: false
+  injectionConfig:
+    allowUntrusted: false
+    checkForBuildAgentErrors: false
+    enabled: false
+    enforceUrl: false
+    injectCcudExtension: false
+    injectMavenExtension: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
+  scmGit:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"

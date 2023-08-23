@@ -18,9 +18,10 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+            - containerPort: 50000
           volumeMounts:
             - name: jenkins-jobs-data
-              mountPath: /var/jenkins_home/jobs
+              mountPath: /var/jenkins_home
       volumes:
         - name: jenkins-jobs-data
           persistentVolumeClaim:
@@ -40,10 +41,14 @@ spec:
       port: 8080
       targetPort: 8080
       nodePort: 32600
+      name: jenkins-port
+    - protocol: TCP
+      port: 50000
+      targetPort: 50000
+      name: jenkins-agent-port
   type: LoadBalancer
   externalIPs: 
     - 192.168.49.2
-
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1

@@ -1,15 +1,26 @@
 # Use base alpine image
 FROM alpine:latest
 
+ARG TOKEN
+RUN test -n "$TOKEN"
+
 # install git and xz-utils
-RUN apk update && apk add --no-cache bash git xz nfs-utils
+RUN apk update && apk add --no-cache bash git xz git github-cli
 
 # Set env variables
-ENV giteaReleaseUrl=https://github.com/go-gitea/gitea/releases/download/v1.20.0-rc0/gitea-1.20.0-rc0-linux-amd64
-ENV giteaReleaseName=gitea-1.20.0-rc0-linux-amd64
+#ENV giteaReleaseUrl=https://github.com/go-gitea/gitea/releases/download/v1.20.0-rc0/gitea-1.20.0-rc0-linux-amd64
+#ENV giteaReleaseName=gitea-1.20.0-rc0-linux-amd64
+#RUN wget "$giteaReleaseUrl" -P /tmp 
 
-# Install binary of gitea from GitHub release
-RUN wget "$giteaReleaseUrl" -P /tmp 
+
+RUN echo "$TOKEN" | cut -d ':' -f 2 > token.txt
+RUN cat token.txt
+# Install binary of gitea from private GitHub release
+RUN gh auth login --with-token < token.txt 
+RUN rm token.txt
+
+
+RUN gh release download -R PerviyYegor/gitea $(gh release list -R PerviyYegor/gitea| awk '$2 == "Latest" {print $3}') -D /tmp
 
 # Add a git user
 RUN adduser -D "git" && echo "git:git" | chpasswd -e
@@ -30,7 +41,7 @@ RUN mkdir -p "/home/git/app/" \
 WORKDIR "/home/git/app/"
 
 # Propagate gitea binary
-RUN mv "/tmp/$giteaReleaseName" "/home/git/app/gitea"
+RUN mv "/tmp/gitea" "/home/git/app/gitea"
 RUN chmod 0755 "/home/git/app/gitea" \
     && chown "git":"git" "/home/git/app/gitea"
 
@@ -38,7 +49,10 @@ RUN chmod 0755 "/home/git/app/gitea" \
 RUN rm -rf /var/cache/apk/*
 USER git
 
-COPY "app.ini" "custom/conf/app.ini"
+# Copy file "app.ini" in "custom/conf/app.ini" if this exist
+COPY Dockerfile app.ini* ./custom/conf/
+RUN  rm -f ./custom/conf/Dockerfile
+
 
 # Add the command to remove the directory
 CMD ["sh", "-c", "rm -fr /home/git/app/data/queues/common && ./gitea web"]

@@ -2,7 +2,9 @@
 FROM alpine:latest
 
 ARG TOKEN
+ARG REPO 
 RUN test -n "$TOKEN"
+RUN test -n "$REPO"
 
 # install git and xz-utils
 RUN apk update && apk add --no-cache bash git xz git github-cli
@@ -20,7 +22,7 @@ RUN gh auth login --with-token < token.txt
 RUN rm token.txt
 
 
-RUN gh release download -R PerviyYegor/gitea $(gh release list -R PerviyYegor/gitea| awk '$2 == "Latest" {print $3}') -D /tmp
+RUN gh release download -R $REPO $(gh release list -R $REPO| awk '$2 == "Latest" {print $3}') -D /tmp
 
 # Add a git user
 RUN adduser -D "git" && echo "git:git" | chpasswd -e

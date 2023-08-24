@@ -21,7 +21,7 @@ RUN cat token.txt
 RUN gh auth login --with-token < token.txt 
 RUN rm token.txt
 
-
+RUN echo "last gitea release is version $(gh release list -R $REPO| awk '$2 == "Latest" {print $3}') in $REPO. Build image with this."
 RUN gh release download -R $REPO $(gh release list -R $REPO| awk '$2 == "Latest" {print $3}') -D /tmp
 
 # Add a git user

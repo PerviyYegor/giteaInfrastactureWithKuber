@@ -16,8 +16,7 @@ RUN apk update && apk add --no-cache bash git xz git github-cli
 
 
 RUN echo "$TOKEN" | cut -d ':' -f 2 > token.txt
-RUN cat token.txt
-RUN tail -f /dev/null
+
 # Install binary of gitea from private GitHub release
 RUN gh auth login --with-token < token.txt 
 RUN rm token.txt

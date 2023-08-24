@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitea-postgresql-deployment
+  namespace: giteaApp
 spec:
   replicas: 1
   selector:
@@ -36,6 +37,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitea-deployment
+  namespace: giteaApp
 spec:
   replicas: 2
   minReadySeconds: 60
@@ -57,12 +59,17 @@ spec:
           ports:
             - containerPort: 3000
           volumeMounts:
-           - name: gitea-data
-             mountPath: /home/git/app/data
+            - name: gitea-data
+              mountPath: /home/git/app/data
+            - name: gitea-custom-conf
+              mountPath: /home/git/app/custom/conf
       volumes:
         - name: gitea-data
           persistentVolumeClaim:
             claimName: gitea-data-pvc
+        - name: gitea-custom-conf
+          persistentVolumeClaim:
+            claimName: gitea-conf-pvc
 
 ---
 
@@ -70,6 +77,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-postgresql-service
+  namespace: giteaApp
 spec:
   selector:
     app: gitea-postgresql
@@ -85,6 +93,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-service
+  namespace: giteaApp
 spec:
   selector:
     app: gitea
@@ -94,6 +103,8 @@ spec:
       targetPort: 3000
       nodePort: 32500
   type: LoadBalancer
+  externalIPs: 
+    - 192.168.59.100
 
 ---
 
@@ -101,6 +112,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: gitea-data-pvc
+  namespace: giteaApp
 spec:
   accessModes:
     - ReadWriteMany
@@ -113,7 +125,22 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: gitea-conf-pvc
+  namespace: giteaApp
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Ki 
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: postgres-data-pvc
+  namespace: giteaApp
 spec:
   accessModes:
     - ReadWriteOnce

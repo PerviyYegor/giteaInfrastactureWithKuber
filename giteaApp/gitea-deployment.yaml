@@ -46,7 +46,7 @@ metadata:
   name: gitea-deployment
   namespace: gitea-app
 spec:
-  replicas: 2
+  replicas: 1
   minReadySeconds: 60
   selector:
     matchLabels:
@@ -68,15 +68,10 @@ spec:
           volumeMounts:
             - name: gitea-data
               mountPath: /home/git/app/data
-            - name: gitea-custom-conf
-              mountPath: /home/git/app/custom/conf
       volumes:
         - name: gitea-data
           persistentVolumeClaim:
             claimName: gitea-data-pvc
-        - name: gitea-custom-conf
-          persistentVolumeClaim:
-            claimName: gitea-conf-pvc
 
 ---
 
@@ -126,20 +121,6 @@ spec:
   resources:
     requests:
       storage: 1Gi 
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: gitea-conf-pvc
-  namespace: gitea-app
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Ki 
 
 ---
 

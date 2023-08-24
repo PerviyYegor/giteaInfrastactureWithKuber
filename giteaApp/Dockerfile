@@ -49,12 +49,14 @@ RUN chmod 0755 "/home/git/app/gitea" \
 
 # Clean package manager cache
 RUN rm -rf /var/cache/apk/*
-USER git
 
-# Copy file "app.ini" in "custom/conf/app.ini" if this exist
+# Copy file "app.ini" in "custom/conf/app.ini" if one exist
 COPY Dockerfile app.ini* ./custom/conf/
 RUN  rm -f ./custom/conf/Dockerfile
+RUN chown -R "git:git" "./custom/conf/" \
+    && chmod -R u=rwX,g=rX,o= "./custom/conf/"
 
+USER git
 
 # Add the command to remove the directory
 CMD ["sh", "-c", "rm -fr /home/git/app/data/queues/common && ./gitea web"]

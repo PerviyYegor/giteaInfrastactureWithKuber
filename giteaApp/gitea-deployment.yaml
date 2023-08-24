@@ -1,8 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitea-app
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitea-postgresql-deployment
-  namespace: giteaApp
+  namespace: gitea-app
 spec:
   replicas: 1
   selector:
@@ -37,7 +44,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitea-deployment
-  namespace: giteaApp
+  namespace: gitea-app
 spec:
   replicas: 2
   minReadySeconds: 60
@@ -77,7 +84,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-postgresql-service
-  namespace: giteaApp
+  namespace: gitea-app
 spec:
   selector:
     app: gitea-postgresql
@@ -93,7 +100,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-service
-  namespace: giteaApp
+  namespace: gitea-app
 spec:
   selector:
     app: gitea
@@ -112,7 +119,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: gitea-data-pvc
-  namespace: giteaApp
+  namespace: gitea-app
 spec:
   accessModes:
     - ReadWriteMany
@@ -126,7 +133,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: gitea-conf-pvc
-  namespace: giteaApp
+  namespace: gitea-app
 spec:
   accessModes:
     - ReadWriteMany
@@ -140,7 +147,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-data-pvc
-  namespace: giteaApp
+  namespace: gitea-app
 spec:
   accessModes:
     - ReadWriteOnce

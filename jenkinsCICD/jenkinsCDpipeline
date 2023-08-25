@@ -1,0 +1,46 @@
+pipeline {
+    agent {
+        label 'jenkins-kuber-slave'
+    }
+
+    environment {
+        dockerImageName = "gitea"
+        dockerImage = ""
+        
+        CREDENTIALS_ID = 'giteaCreds'
+        REPO_NAME = 'PerviyYegor/gitea'
+    }
+    
+    stages{
+        stage('Checkout Source') {
+          steps {
+              container('jenkins-kuber-slave-dind') {
+            git url:'https://github.com/PerviyYegor/giteaInfrastactureWithKuber', branch: 'main'
+            }
+          }
+          }
+        
+        stage('Build image') {
+            steps {
+                container('jenkins-kuber-slave-dind') {
+                     withCredentials([usernameColonPassword(credentialsId: CREDENTIALS_ID, variable: 'TOKEN')]) {
+                        sh '''
+                        docker build --rm --no-cache -t gitea:latest --build-arg TOKEN=$TOKEN --build-arg REPO=$REPO_NAME ./giteaApp
+                        '''
+                    }
+                }
+            }
+        }
+
+        
+        stage('Deploying Gitea container to Kubernetes') {
+          steps {
+             withKubeConfig([namespace: "default"]) {
+                 container('jenkins-kuber-slave-dind') {
+              sh 'kubectl apply -f ./giteaApp/gitea-deployment.yaml --validate=false'
+            }
+             }
+          }
+        }
+    }
+}

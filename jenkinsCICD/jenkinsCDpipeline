@@ -29,7 +29,7 @@ pipeline {
                 withKubeConfig([namespace: 'default']) {
                     container('jenkins-kuber-slave-dind') {
                         sh 'kubectl delete -f ./giteaApp/gitea-deployment.yaml || true'
-                        sh 'kubectl apply -f ./giteaApp/gitea-deployment.yaml --validate=false'
+                        sh 'kubectl apply -f ./giteaApp --validate=false'
                     }
                 }
             }

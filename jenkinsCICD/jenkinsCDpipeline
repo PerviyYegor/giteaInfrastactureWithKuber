@@ -12,14 +12,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Source') {
-            steps {
-                container('jenkins-kuber-slave-dind') {
-                    git url:'https://github.com/PerviyYegor/giteaInfrastactureWithKuber', branch: 'main'
-                }
-            }
-        }
-
         stage('Build image') {
             steps {
                 container('jenkins-kuber-slave-dind') {
@@ -36,7 +28,7 @@ pipeline {
             steps {
                 withKubeConfig([namespace: 'default']) {
                     container('jenkins-kuber-slave-dind') {
-                        sh 'kubectl delete -f ./giteaApp/gitea-deployment.yaml --validate=false || true'
+                        sh 'kubectl delete -f ./giteaApp/gitea-deployment.yaml || true'
                         sh 'kubectl apply -f ./giteaApp/gitea-deployment.yaml --validate=false'
                     }
                 }

@@ -26,11 +26,9 @@ pipeline {
 
         stage('Deploying Gitea container to Kubernetes') {
             steps {
-                withKubeConfig([namespace: 'default']) {
-                    container('jenkins-kuber-slave-dind') {
-                        sh 'kubectl delete -f ./giteaApp/gitea-deployment.yaml || true'
-                        sh 'kubectl apply -f ./giteaApp --validate=false'
-                    }
+                container('jenkins-kuber-slave-dind') {
+                    sh 'kubectl delete -f ./giteaApp/gitea-deployment.yaml || true'
+                    sh 'kubectl apply -f ./giteaApp --validate=false'
                 }
             }
         }

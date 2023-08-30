@@ -28,6 +28,13 @@ spec:
         app: jenkins
     spec:
       serviceAccountName: jenkins 
+      initContainers:
+      - name: init-jenkins
+        image:  jenkins:jcasc
+        command: ['sh', '-c', 'cp -a /var/jenkins_home/* /mnt/pv-content/']
+        volumeMounts:
+         - name: jenkins-jobs-data
+           mountPath: "/mnt/pv-content"
       containers:
         - name: jenkins
           image: jenkins:jcasc

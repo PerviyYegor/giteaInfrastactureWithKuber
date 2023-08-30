@@ -3,8 +3,9 @@ credentials:
     domainCredentials:
     - credentials:
       - usernamePassword:
-          id: "047377bd-1690-47b3-99d5-d32b6d7a3017"
-          password: "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"
+          description: "Credentials to GitHub account"
+          id: "giteaCreds"
+          password: "***"
           scope: GLOBAL
           username: "PerviyYegor"
 jenkins:
@@ -13,25 +14,58 @@ jenkins:
   - "Ping"
   clouds:
   - kubernetes:
-      connectTimeout: 50
       containerCap: 10
       containerCapStr: "10"
       jenkinsUrl: "http://jenkins-service:8080"
       name: "kuberBuilder"
       namespace: "default"
-      readTimeout: 50
+      podRetention: "always"
       templates:
-      - id: "003f05b6-6f09-4ab0-8308-78500e77b0f3"
+      - containers:
+        - args: "9999"
+          command: "sleep"
+          image: "jenkins/inbound-agent:3107.v665000b_51092-15-alpine"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 30
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jenkins-kuber-slave-alpine"
+          runAsGroup: "0"
+          runAsUser: "0"
+          workingDir: "/home/jenkins/agent"
+        - args: "9999999"
+          command: "sleep"
+          image: "benkoller/dind-kubectl:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jenkins-kuber-slave-dind"
+          workingDir: "/home/jenkins/agent"
+        id: "e20f948f-4ba9-4250-a1ad-de80f170d484"
         label: "jenkins-kuber-slave"
         name: "jenkins-kuber-slave"
         namespace: "default"
-        podRetention: "always"
+        podRetention: "never"
+        volumes:
+        - hostPathVolume:
+            hostPath: "/var/run/docker.sock"
+            mountPath: "/var/run/docker.sock"
+            readOnly: false
         yamlMergeStrategy: "override"
       webSocket: true
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
   disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "jenkins.diagnostics.SecurityIsOffMonitor"
+  - "jenkins.diagnostics.RootUrlNotSetMonitor"
+  - "jenkins.diagnostics.ControllerExecutorsAgents"
   labelAtoms:
   - name: "built-in"
   - name: "jenkins-kuber-slave"
@@ -111,7 +145,7 @@ unclassified:
         showMatrixStatus: false
     githubAuth:
     - description: "Anonymous connection"
-      id: "fb863cd3-7bf9-42a8-8d23-580c7d8f1cb6"
+      id: "72ff260e-a0c5-4af5-83b1-f48fbfc7ccda"
       serverAPIUrl: "https://api.github.com"
     manageWebhooks: true
     okToTestPhrase: ".*ok\\W+to\\W+test.*"
@@ -123,7 +157,7 @@ unclassified:
   gitHubConfiguration:
     apiRateLimitChecker: ThrottleForNormalize
   gitHubPluginConfig:
-    hookUrl: "http://192.168.59.100:32600/github-webhook/"
+    hookUrl: "http://192.168.59.101:32600/github-webhook/"
   githubPullRequests:
     actualiseOnFactory: false
   globalTimeOutConfiguration:

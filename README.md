@@ -1,4 +1,3 @@
----
 
 # Kubernetes-CICD-Monitoring Repository
 
@@ -51,4 +50,3 @@ To use the Kubernetes cluster created by this repository, follow these steps:
 
 Feel free to contribute to this repository or report any issues you encounter. Your contributions and feedback are highly appreciated.
 
----

@@ -44,6 +44,12 @@ To use the Kubernetes cluster created by this repository, follow these steps:
 
 7. After Jenkins completes its tasks, it will deploy the Gitea infrastructure with a PostgreSQL database in the Minikube cluster.
 
+**Monitoring Stack Components:**
+For the monitoring components, we have used manifests from the following repositories:
+- [kubernetes-grafana](https://github.com/bibinwilson/kubernetes-grafana)
+- [kube-state-metrics-configs](https://github.com/devopscube/kube-state-metrics-configs)
+- [kubernetes-prometheus](https://github.com/techiescamp/kubernetes-prometheus)
+
 **Note:** This repository provides a comprehensive example of setting up a Kubernetes cluster for CI/CD and monitoring purposes. Customize the configurations to suit your specific project requirements.
 
 ## Contributions and Issue Reporting:

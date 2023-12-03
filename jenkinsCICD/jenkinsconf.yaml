@@ -5,7 +5,7 @@ credentials:
       - usernamePassword:
           description: "Credentials to GitHub account"
           id: "giteaCreds"
-          password: "***"
+          password: "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"
           scope: GLOBAL
           username: "PerviyYegor"
 jenkins:

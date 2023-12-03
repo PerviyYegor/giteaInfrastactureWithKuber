@@ -1,0 +1,93 @@
+pipeline {
+    agent {
+        label 'jenkins-kuber-slave'
+    }
+
+    environment {
+        CREDENTIALS_ID = 'giteaCreds'
+        BUILD_NUMBER = "${env.BUILD_NUMBER}"
+        DEPLOY_JOB_NAME = 'giteaCD'
+        dockerImageName = 'gitea'
+        dockerImage = ''
+        REPO_NAME = 'PerviyYegor/gitea'
+    }
+
+    stages {
+        stage('Download dependencies') {
+            steps {
+                container('jenkins-kuber-slave-alpine') {
+                    sh '''
+                    apk update
+                    apk add --no-cache nodejs make npm
+                    wget https://go.dev/dl/go1.21.4.linux-amd64.tar.gz
+                    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.21.4.linux-amd64.tar.gz
+                    export PATH=$PATH:/usr/local/go/bin
+                    go version
+                    '''
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                container('jenkins-kuber-slave-alpine') {
+                    sh '''
+                    export PATH=$PATH:/usr/local/go/bin
+                    go version
+                    git config --global --add safe.directory $(pwd)
+                    TAGS="bindata" make build
+                    '''
+                }
+            }
+        }
+
+        stage('Publish Release') {
+            when {
+                branch 'main'
+            }
+
+            steps {
+                container('jenkins-kuber-slave-alpine') {
+                    withCredentials([usernameColonPassword(credentialsId: CREDENTIALS_ID, variable: 'TOKEN')]) {
+                        sh '''
+                        apk add --no-cache github-cli
+                        echo "$TOKEN" | cut -d ':' -f 2 > token.txt
+                        gh auth login --with-token < token.txt
+                        rm token.txt
+                        gh release create "v5.0.${BUILD_NUMBER}" ./gitea --title "v5.0.${BUILD_NUMBER}" --notes "Jenkins autodeploy after push in main branch. Number of build is ${BUILD_NUMBER}"
+                        '''
+                    }
+                }
+            }
+        }
+
+       stage('Build image from releases') {
+          when {
+                branch 'main'
+            }
+
+            steps {
+                container('jenkins-kuber-slave-dind') {
+                    withCredentials([usernameColonPassword(credentialsId: CREDENTIALS_ID, variable: 'TOKEN')]) {
+                        sh '''
+                        docker build --rm --no-cache -t gitea:latest --build-arg TOKEN=$TOKEN --build-arg REPO=$REPO_NAME ./giteaKuberApp
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Deploying Gitea container to Kubernetes') {
+           when {
+                branch 'main'
+            }
+
+            steps {
+                container('jenkins-kuber-slave-dind') {
+                    sh 'kubectl delete -f ./giteaKuberApp/gitea-deployment.yaml || true'
+                    sh 'kubectl apply -f ./giteaKuberApp --validate=false'
+                }
+            }
+        }
+    }
+}
